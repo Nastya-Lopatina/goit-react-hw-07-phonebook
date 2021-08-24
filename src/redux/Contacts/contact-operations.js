@@ -9,7 +9,7 @@ import {
     deleteContactSuccess,
     deleteContactError
 } from '../Contacts/contact-actions';
-import {addContact,getContact,deleteContact}from '../../service/contact-api';
+import {addContact,getContact}from '../../service/contact-api';
 import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:3000';
