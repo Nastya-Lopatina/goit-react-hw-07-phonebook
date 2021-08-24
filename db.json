@@ -1,12 +1,19 @@
 {
   "contacts": [
     {
-      "ghy": "",
-      "id": 1
+      "name": "Vika",
+      "number": "147-158-12",
+      "id": 4
     },
     {
-      "nastya": "",
-      "id": 2
+      "name": "Natasha",
+      "number": "147-458-78",
+      "id": 5
+    },
+    {
+      "name": "Vova",
+      "number": "148-548-35",
+      "id": 6
     }
   ]
 }

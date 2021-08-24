@@ -9,23 +9,35 @@ import {
     deleteContactSuccess,
     deleteContactError
 } from '../Contacts/contact-actions';
-import * as API from '../../service/contact-api';
+import {addContact,getContact,deleteContact}from '../../service/contact-api';
+import axios from 'axios';
 
-export const fetchContact = () => async dispatch => {
-    dispatch(fetchContactRequest())
+axios.defaults.baseURL = 'http://localhost:3000';
 
+
+export const fetchContacts = () => async dispatch => {
+    dispatch(fetchContactRequest());
+  
     try {
-        const { data } = await API.fetchContacts();
-        dispatch(fetchContactSuccess(data))
+        // console.log(await getContact())
+      const { data } = await getContact();
+  dispatch(fetchContactSuccess(data))
+     
     } catch (error) {
-        dispatch(fetchContactError(error))
+      dispatch(fetchContactError(error));
     }
+  
 }
 
-export const addContact = (name, number) => async dispatch => {
+export const addContacts = (name, number) => async dispatch => {
+    const contact = {
+        name,
+        number,
+      };
     dispatch(addContactRequest());
     try {
-        const items = await API.addContact(name, number);
+        // console.log(await addContact(contact))
+        const items = await addContact(contact);
         dispatch(addContactSuccess(items))
 
     } catch (error) {
@@ -33,14 +45,11 @@ export const addContact = (name, number) => async dispatch => {
     }
 }
 
-export const deleteContact = (id) => async dispatch => {
-    dispatch(deleteContactRequest())
-    try {
-        const contactId = await API.deleteContact(id);
-        dispatch(deleteContactSuccess(contactId))
-
-    } catch (error) {
-        dispatch(deleteContactError(error))
-    }
-}
-   
+export const deleteContacts = id => dispatch => {
+    dispatch(deleteContactRequest());
+  
+    axios
+      .delete(`/contacts/${id}`)
+      .then(() => dispatch(deleteContactSuccess(id)))
+      .catch(error => dispatch(deleteContactError(error)));
+  };
